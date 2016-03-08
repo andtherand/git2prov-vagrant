@@ -39,7 +39,7 @@ ssh-keygen -t rsa -b 4096 -C 'git2prov.dev'
 #   User root
 #   LogLevel ERROR
 
-echo 'Host hpc.telemetry.dev\n\tHostname 192.168.34.11\n\tIdentityfile ~/.ssh/vagrant_rsa\n\tStrictHostKeyChecking no\n\tUser root\n\tLogLevel ERROR \n\n' >> ~/.ssh/config
+echo 'Host git2prov.dev\n\tHostname 192.168.34.11\n\tIdentityfile ~/.ssh/vagrant_rsa\n\tStrictHostKeyChecking no\n\tUser root\n\tLogLevel ERROR \n\n' >> ~/.ssh/config
 ```
 
 __Starting vagrant__
