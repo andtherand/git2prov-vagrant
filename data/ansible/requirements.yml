@@ -1,0 +1,35 @@
+---
+# Requirements
+#
+# Description:
+#   This file handles dependencies on roles available over at the ansible-galaxy -- because we are devs and kind of lazy so we let other
+#   people do all the heavy liffting :] -- jk -- we want to keep things DRY.
+#   This resembles the functionality of a packagemanager like apt, npm, cocoaPods or homebrew.
+#
+#   Install roles by entering the following command into your shell of choice:
+#
+#     ```
+#       cd ./path/to/requirements.yml
+#       ansible-galaxy install -r requirements.yml -f
+#     ```
+#     The -f option is required or else ansible-galaxy won't install roles that are already available.
+#     Further information about ansible-galaxy can be obtained from here: https://galaxy.ansible.com/intro
+#
+#
+# Author Andreas Ruck <mychiara@gmail.com>
+# Copyright 2015
+# License MIT
+
+- src: mychiara.ohmyzsh
+  version: 1.0.3
+
+- src: mychiara.common
+  version: 0.0.9
+
+- src: mychiara.project_setup
+  version: 0.0.1
+
+- src: mychiara.terminal_notifier
+
+- src: geerlingguy.nodejs
+  version: 2.1.1

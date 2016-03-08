@@ -1,0 +1,23 @@
+---
+
+- name: install git2prov
+  command: npm install -g git2prov
+
+- name: run git2prov
+  command: git2prov-server 8905
+  poll: 0
+  async: 45
+
+
+# - name: copy run script
+#   copy:
+#     src: run
+#     dest: /etc/init.d/git2prov
+#     mode: 0755
+
+# - name: upstart
+#   command: update-rc.d git2prov defaults
+
+# - name: run git2prov
+#   service: name=git2prov state=started
+#   become: yes

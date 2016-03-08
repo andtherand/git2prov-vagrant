@@ -1,0 +1,68 @@
+#!/bin/bash
+# Startup script for the Git2Prov service
+### BEGIN INIT INFO
+# Provides:             git2prov
+# Required-Start:       $syslog $remote_fs
+# Required-Stop:        $syslog $remote_fs
+# Should-Start:         $local_fs
+# Should-Stop:          $local_fs
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Git2Prov Service
+# Description:          Git2Prov Service
+### END INIT INFO
+PID_FILE=/var/run/git2prov.pid
+PROXY_PID_FILE=/var/run/proxy.pid
+LOG_FILE=/var/log/git2prov.log
+APPLICATION_DIR=/home/node/git2prov/
+
+start() {
+  if [ -f $PID_FILE ]
+  then
+    echo "$PID_FILE exists, process is already running or crashed"
+    RETVAL=0
+  else
+    echo "Starting server..."
+    cd $APPLICATION_DIR
+    sudo node bin/proxy 80 8905 &
+    echo $! > $PROXY_PID_FILE
+    sudo node bin/git2prov-server 8905 2>&1 >> $LOG_FILE &
+    echo $! > $PID_FILE;
+    RETVAL=$?
+  fi
+}
+stop() {
+  if [ ! -f $PID_FILE ]
+  then
+    echo "$PID_FILE does not exist, process is not running"
+    RETVAL=0
+  else
+    echo "Stopping server..."
+    echo "Killing `cat $PID_FILE`"
+    kill `cat $PID_FILE`;
+    rm $PID_FILE;
+    echo "Killing `cat $PROXY_PID_FILE`"
+    kill `cat $PROXY_PID_FILE`;
+    rm $PROXY_PID_FILE;
+    echo "Server stopped"
+    RETVAL=$?
+  fi
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: {start|stop|restart}"
+        exit 1
+        ;;
+esac
+exit $RETVAL

@@ -1,0 +1,15 @@
+---
+
+# configures oh my zsh
+_ohmyzsh_plugins:
+  - 'git'
+  - 'node'
+  - 'npm'
+
+mychiara_ohmyzsh_users:
+  - user: root
+    theme: robbyrussell
+    plugins: "{{ _ohmyzsh_plugins }}"
+
+nodejs_version: "0.12"
+nodejs_forever: yes
